@@ -17,7 +17,7 @@ public static class IdentityServiceExtensions
                     Encoding.UTF8.GetBytes(config["TokenKey"])),
                 ValidateIssuer   = false,
                 ValidateAudience = false,
-
+    
             };
         });
 
