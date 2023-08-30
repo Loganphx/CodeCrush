@@ -28,8 +28,7 @@ export class NavComponent implements OnInit
     });
 
 
-  constructor(public accountService: AccountService, private router: Router,
-              private toastr : ToastrService) {
+  constructor(public accountService: AccountService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -41,7 +40,7 @@ export class NavComponent implements OnInit
     this.accountService.login({"Username": username, "Password": password})
       .subscribe({
         next: _ => this.router.navigateByUrl("/members"),
-        error: error => this.toastr.error(error.error)
+        //error: error => this.toastr.error(error.error)
     });
   }
 

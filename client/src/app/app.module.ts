@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from "@angular/forms";
-import {JwtInterceptor} from "./_inceptors/jwt.interceptor";
+import {JwtInterceptor} from "./_interceptors/jwt.interceptor";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -16,6 +16,11 @@ import { MembersDetailComponent } from './members/members-detail/members-detail.
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import {ToastrModule} from "ngx-toastr";
+import {SharedModule} from "./_modules/shared.module";
+import {ErrorInterceptor} from "./_interceptors/error.interceptor";
+import {TestErrorComponent} from "./errors/test-error/test-error.component";
+import {NotFoundComponent} from "./errors/not-found/not-found.component";
+import {ServerErrorComponent} from "./errors/server-error/server-error.component";
 
 @NgModule({
   declarations: [
@@ -26,7 +31,10 @@ import {ToastrModule} from "ngx-toastr";
     MembersListComponent,
     MembersDetailComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    TestErrorComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,12 +42,12 @@ import {ToastrModule} from "ngx-toastr";
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    BsDropdownModule.forRoot(),
-    ToastrModule.forRoot({
-      positionClass: "toast-bottom-right"
-    }),
+    SharedModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}] ,
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ] ,
   bootstrap: [AppComponent]
 })
 export class AppModule { }
