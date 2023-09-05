@@ -1,35 +1,71 @@
-using API.Data;
+using API.DTOs;
 using API.Entities;
+using API.Extensions;
+using API.Helpers;
+using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
-
 
 [Authorize]
 public class UsersController : BaseApiController
 {
-    private readonly DataContext _context;
-
-    public UsersController(DataContext context)
+    private readonly IUserService  _userService;
+    public UsersController(
+        IUserService userService)
     {
-        _context = context;
+        _userService       = userService;
     }
     
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<IEnumerable<AppUser>>> Get()
+    public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
-        var users = await _context.Users.ToListAsync();
+        var users = await _userService.GetMembersAsync(userParams);
+        
+        var paginationHeader = new PaginationHeader(users.CurrentPage, users.PageSize,
+            users.TotalCount, users.TotalPages);
+        Response.AddPaginationHeader(paginationHeader);
 
-        return users;
+        return Ok(users);
     }
     
-    [HttpGet("{id}")] //api/users/2
+    [HttpGet("{username}")] //api/users/2
     [Authorize]
-    public async Task<ActionResult<AppUser?>> GetUser(int id)
+    public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
-        return await _context.Users.FindAsync(id);
+        return Ok(await _userService.GetMemberAsync(username));
+    }
+    
+    [HttpPut]
+    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+    {
+        await _userService.UpdateUser(User.GetUsername(), memberUpdateDto);
+        return NoContent();
+    }
+    
+    [HttpPost("add-photo")]
+    [Authorize]
+    public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+    {
+        var photoDto = await _userService.AddPhoto(User.GetUsername(), file);
+
+        return CreatedAtAction(nameof(GetUser), new {username = User.GetUsername()}, photoDto);
+    }
+    
+    [HttpPut("set-main-photo/{photoId}")]
+    [Authorize]
+    public async Task<ActionResult> SetMainPhoto(int photoId)
+    {
+        await _userService.SetMainPhoto(User.GetUsername(), photoId);
+        return NoContent();
+    }
+    
+    [HttpDelete("delete-photo/{photoId}")]
+    public async Task<ActionResult> DeletePhoto(int photoId)
+    {
+        await _userService.DeletePhoto(User.GetUsername(), photoId);
+        return NoContent();
     }
 }

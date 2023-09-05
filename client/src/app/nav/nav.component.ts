@@ -22,7 +22,7 @@ export class NavComponent implements OnInit
   formGroup = new FormGroup<LoginForm>(
     {
       username: new FormControl('', {nonNullable:true,
-        validators: [Validators.required, Validators.minLength(6)]}),
+        validators: [Validators.required, Validators.minLength(4)]}),
       password: new FormControl('', {nonNullable:true,
         validators: [Validators.required, Validators.minLength(8)]}),
     });

@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {MembersListComponent} from "./members/members-list/members-list.component";
-import {MembersDetailComponent} from "./members/members-detail/members-detail.component";
+import {MemberDetailComponent} from "./members/member-detail/member-detail.component";
 import {ListsComponent} from "./lists/lists.component";
 import {MessagesComponent} from "./messages/messages.component";
 import {authGuard} from "./_guards/auth.guard";
 import {NotFoundComponent} from "./errors/not-found/not-found.component";
 import {ServerErrorComponent} from "./errors/server-error/server-error.component";
 import {TestErrorComponent} from "./errors/test-error/test-error.component";
+import {MemberEditComponent} from "./members/member-edit/member-edit.component";
+import {preventUnsavedChangesGuard} from "./_guards/prevent-unsaved-changes.guard";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -17,7 +19,8 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {path: 'members', component: MembersListComponent},
-      {path: 'members/:id', component: MembersDetailComponent},
+      {path: 'members/:username', component: MemberDetailComponent},
+      {path: 'member/edit', component: MemberEditComponent, canDeactivate: [preventUnsavedChangesGuard]},
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},
     ]

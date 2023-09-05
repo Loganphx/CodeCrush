@@ -8,19 +8,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import {JwtInterceptor} from "./_interceptors/jwt.interceptor";
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { MembersListComponent } from './members/members-list/members-list.component';
-import { MembersDetailComponent } from './members/members-detail/members-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
-import {ToastrModule} from "ngx-toastr";
 import {SharedModule} from "./_modules/shared.module";
 import {ErrorInterceptor} from "./_interceptors/error.interceptor";
 import {TestErrorComponent} from "./errors/test-error/test-error.component";
 import {NotFoundComponent} from "./errors/not-found/not-found.component";
 import {ServerErrorComponent} from "./errors/server-error/server-error.component";
+import { MembersListComponent } from './members/members-list/members-list.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +32,17 @@ import {ServerErrorComponent} from "./errors/server-error/server-error.component
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    MembersListComponent,
-    MembersDetailComponent,
     ListsComponent,
     MessagesComponent,
     TestErrorComponent,
     NotFoundComponent,
     ServerErrorComponent,
+    MembersListComponent,
+    MemberCardComponent,
+    MemberEditComponent,
+    PhotoEditorComponent,
+    TextInputComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +54,8 @@ import {ServerErrorComponent} from "./errors/server-error/server-error.component
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ] ,
   bootstrap: [AppComponent]
 })

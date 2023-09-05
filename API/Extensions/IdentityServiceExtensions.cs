@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using API.DTOs;
+using API.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
