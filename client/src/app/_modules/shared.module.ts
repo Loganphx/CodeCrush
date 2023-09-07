@@ -6,6 +6,8 @@ import { ToastrModule } from "ngx-toastr";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {FileUploadModule} from "ng2-file-upload";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {PaginationModule} from "ngx-bootstrap/pagination";
+import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [],
@@ -20,6 +22,7 @@ import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
       type: 'line-scale-party'
     }),
     BsDatepickerModule.forRoot(),
+    MatPaginatorModule,
     FileUploadModule
   ],
   exports: [
@@ -28,7 +31,8 @@ import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
     ToastrModule,
     NgxSpinnerModule,
     FileUploadModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MembersService} from "../../_services/members.service";
 import {ActivatedRoute} from "@angular/router";
-import {Member} from "../../_models/Member";
+import {Member} from "../../_models/member";
 import {CommonModule} from "@angular/common";
 import {TabsModule} from "ngx-bootstrap/tabs";
 import {GalleryItem, GalleryModule, ImageItem} from "ng-gallery";

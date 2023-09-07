@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map} from "rxjs";
-import {IUser} from "../_models/IUser";
+import {User} from "../_models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,10 @@ import {IUser} from "../_models/IUser";
 export class AccountService {
   baseUrl = "https://localhost:5001/api/"
 
-  private currentUserSource = new BehaviorSubject<IUser | null>(null);
+  private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  get currentUser(): IUser | null {
+  get currentUser(): User | null {
     return this.currentUserSource.getValue();
   }
   users: any;
@@ -20,7 +20,7 @@ export class AccountService {
 
   login(model: any)
   {
-    return this.http.post<IUser>(this.baseUrl + "account/login", model).pipe(
+    return this.http.post<User>(this.baseUrl + "account/login", model).pipe(
       map((response: any) => {
         const user = response;
         if(user) {
@@ -31,7 +31,7 @@ export class AccountService {
 
   register(model: any)
   {
-    return this.http.post<IUser>(this.baseUrl + "account/register", model).pipe(
+    return this.http.post<User>(this.baseUrl + "account/register", model).pipe(
       map(user => {
         if(user) {
           this.setCurrentUser(user)
@@ -41,7 +41,7 @@ export class AccountService {
     )
   }
 
-  setCurrentUser(user: IUser)
+  setCurrentUser(user: User)
   {
     localStorage.setItem("user", JSON.stringify(user));
     this.currentUserSource.next(user)

@@ -44,7 +44,7 @@ public class AccountService : IAccountService
         _userRepository.Add(user);
         await _userRepository.SaveAllAsync();
 
-        return new UserDto(user.Username, _tokenService.CreateToken(user), user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs);
+        return new UserDto(user.Username, _tokenService.CreateToken(user), user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs, user.Gender);
     }
 
     public async Task<ActionResult<UserDto>> Login(LoginRequest request)
@@ -63,7 +63,7 @@ public class AccountService : IAccountService
 
 
         var token = _tokenService.CreateToken(user);
-        return new UserDto(user.Username, token, user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs);
+        return new UserDto(user.Username, token, user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs, user.Gender);
 
     }
 

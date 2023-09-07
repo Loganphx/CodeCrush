@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {Member} from "../../_models/Member";
-import {IUser} from "../../_models/IUser";
+import {Member} from "../../_models/member";
+import {User} from "../../_models/user";
 import {MembersService} from "../../_services/members.service";
 import {AccountService} from "../../_services/account.service";
 import {take} from "rxjs";
@@ -9,6 +9,7 @@ import {ToastrService} from "ngx-toastr";
 
 export interface MemberEditForm
 {
+  knownAs: FormControl<string>;
   introduction: FormControl<string>;
   lookingFor: FormControl<string>;
   interests: FormControl<string>;
@@ -29,9 +30,10 @@ export class MemberEditComponent implements OnInit {
   }
 
   member : Member | undefined;
-  user : IUser | null = null;
+  user :  User | null = null;
 
   editMemberFormGroup = new FormGroup<MemberEditForm>({
+    knownAs: new FormControl('', {nonNullable:true, validators: [Validators.required]}),
     introduction: new FormControl('', {nonNullable:true,
       validators: [Validators.required]}),
     lookingFor: new FormControl('', {nonNullable:true,
@@ -59,6 +61,7 @@ export class MemberEditComponent implements OnInit {
     this.memberService.getMember(this.user.username).subscribe({
       next: member => {
         this.member = member;
+        this.editMemberFormGroup.controls.knownAs.patchValue(member.knownAs);
         this.editMemberFormGroup.controls.introduction.patchValue(member.introduction);
         this.editMemberFormGroup.controls.lookingFor.patchValue(member.lookingFor);
         this.editMemberFormGroup.controls.interests.patchValue(member.interests);
@@ -72,6 +75,7 @@ export class MemberEditComponent implements OnInit {
 
   updateMember() {
       if(!this.member) return;
+      this.member.knownAs = this.editMemberFormGroup.controls.knownAs.getRawValue();
       this.member.introduction = this.editMemberFormGroup.controls.introduction.getRawValue();
       this.member.lookingFor = this.editMemberFormGroup.controls.lookingFor.getRawValue();
       this.member.interests = this.editMemberFormGroup.controls.interests.getRawValue();
@@ -82,6 +86,8 @@ export class MemberEditComponent implements OnInit {
       this.memberService.updateMember(this.member).subscribe({
         next: _ => {
           this.toastr.success('Profile updated successfully.')
+          this.user!.knownAs = this.member!.knownAs;
+          this.accountService.setCurrentUser(this.user!);
           this.editMemberFormGroup.reset(this.member);
         }
       })

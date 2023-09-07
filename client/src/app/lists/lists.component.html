@@ -1,1 +1,5 @@
-<p>lists works!</p>
+<div class="row">
+  <div class="col-2" *ngFor="let job of jobs">
+    <a href="{{job.jobLink}}">{{job.jobTitle}}</a>
+  </div>
+</div>

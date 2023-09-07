@@ -21,11 +21,11 @@ const routes: Routes = [
       {path: 'members', component: MembersListComponent},
       {path: 'members/:username', component: MemberDetailComponent},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [preventUnsavedChangesGuard]},
-      {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},
     ]
   },
 
+  {path: 'jobs', component: ListsComponent},
   {path: 'errors', component: TestErrorComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},

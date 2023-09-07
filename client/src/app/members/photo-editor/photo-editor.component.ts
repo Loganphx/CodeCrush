@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Member} from "../../_models/Member";
+import {Member} from "../../_models/member";
 import {FileUploader} from "ng2-file-upload";
 import {environment} from "../../../environments/environment.development";
 import {AccountService} from "../../_services/account.service";
 import {take} from "rxjs";
-import {IUser} from "../../_models/IUser";
+import {User} from "../../_models/user";
 import {MembersService} from "../../_services/members.service";
-import {Photo} from "../../_models/Photo";
+import {Photo} from "../../_models/photo";
 
 @Component({
   selector: 'app-photo-editor',
@@ -18,7 +18,7 @@ export class PhotoEditorComponent implements OnInit {
   uploader:FileUploader | undefined;
   hasBaseDropZoneOver:boolean | undefined;
   baseUrl = environment.apiUrl
-  user: IUser | undefined;
+  user: User | undefined;
 
   constructor(private accountService: AccountService, private memberService: MembersService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
@@ -57,8 +57,8 @@ export class PhotoEditorComponent implements OnInit {
         this.member?.photos.push(photo)
         if(photo.isMain && this.user && this.member)
         {
-          this.user.photoUrl = photo.url;
           this.member.photoUrl = photo.url;
+          this.user.photoUrl = photo.url;
           this.accountService.setCurrentUser(this.user!);
         }
       }

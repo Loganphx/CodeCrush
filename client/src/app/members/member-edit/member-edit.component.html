@@ -40,6 +40,9 @@
     <tabset class="member-tabset">
       <tab heading="About {{member.knownAs}}">
         <form [formGroup]="editMemberFormGroup" id="editForm" (ngSubmit)="updateMember()">
+          <label for="knownAs">Known As: </label>
+          <input type="text" formControlName="knownAs" class="form-control mx-2">
+
           <h4 class="mt-2">Introduction</h4>
           <textarea class="form-control"
                      formControlName="introduction"

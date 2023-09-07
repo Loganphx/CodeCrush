@@ -1,13 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../_services/account.service";
-import {Observable} from "rxjs";
-import {IUser} from "../_models/IUser";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 
-export interface LoginForm
-{
+export interface LoginForm {
   username: FormControl<string>
   password: FormControl<string>
 }
@@ -17,18 +14,23 @@ export interface LoginForm
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit
-{
+export class NavComponent implements OnInit {
   formGroup = new FormGroup<LoginForm>(
     {
-      username: new FormControl('', {nonNullable:true,
-        validators: [Validators.required, Validators.minLength(4)]}),
-      password: new FormControl('', {nonNullable:true,
-        validators: [Validators.required, Validators.minLength(8)]}),
+      username: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(4)]
+      }),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(8)]
+      }),
     });
 
 
-  constructor(public accountService: AccountService, private router: Router) {
+  constructor(public accountService: AccountService,
+              private router: Router,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -40,12 +42,11 @@ export class NavComponent implements OnInit
     this.accountService.login({"Username": username, "Password": password})
       .subscribe({
         next: _ => this.router.navigateByUrl("/members"),
-        //error: error => this.toastr.error(error.error)
-    });
+        error: error => this.toastr.error(error.error)
+      });
   }
 
-  logout()
-  {
+  logout() {
     this.accountService.logout();
     this.router.navigateByUrl("/");
   }

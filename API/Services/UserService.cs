@@ -16,9 +16,17 @@ public class UserService : IUserService
         _userRepository    = userRepository;
         _photoService = photoService;
     }
-    public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
+    public async Task<PagedList<MemberDto>> GetMembersAsync(string username, UserParams userParams)
     {
-        var users = await _userRepository.GetUsersAsync(userParams);
+        var currentUser = await _userRepository.GetUserByUsernameAsync(username);
+        userParams.CurrentUsername = currentUser.Username;
+
+        if (string.IsNullOrEmpty(userParams.Gender))
+        {
+            userParams.Gender = currentUser.Gender == "male" ? "female" : "male";
+        }
+        
+        var users       = await _userRepository.GetUsersAsync(userParams);
 
         return users;
     }
@@ -36,6 +44,7 @@ public class UserService : IUserService
         var user = await _userRepository.GetUserByUsernameAsync(username);
         if(user == null) throw new BadRequestException($"User with {username} not found");
 
+        user.KnownAs = memberUpdateDto.KnownAs;
         user.Introduction = memberUpdateDto.Introduction;
         user.LookingFor   = memberUpdateDto.LookingFor;
         user.Interests    = memberUpdateDto.Interests;
