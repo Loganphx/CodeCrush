@@ -25,7 +25,7 @@ public class AccountController : BaseApiController
     }
 
     [AllowAnonymous]
-    [HttpPost("login")]
+    [HttpPost("login")] // POST: api/account/login
     public async Task<ActionResult<UserDto>> Login(LoginRequest request)
     {
         return await _accountService.Login(request);

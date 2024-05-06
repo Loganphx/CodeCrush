@@ -20,6 +20,7 @@ public class UsersController : BaseApiController
     
     [HttpGet]
     [Authorize]
+    // GET: api/users/ 
     public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
         var users = await _userService.GetMembersAsync(User.GetUsername(), userParams);

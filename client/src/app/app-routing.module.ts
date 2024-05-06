@@ -22,6 +22,7 @@ const routes: Routes = [
       {path: 'members/:username', component: MemberDetailComponent},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [preventUnsavedChangesGuard]},
       {path: 'messages', component: MessagesComponent},
+      {path: 'lists', component: ListsComponent},
     ]
   },
 
