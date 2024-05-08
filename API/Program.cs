@@ -26,7 +26,8 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<LogUserActivity>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILikesRepository, LikesRepository>();
-
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityServices(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

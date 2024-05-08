@@ -52,10 +52,7 @@ public class LikesController : BaseApiController
     {
         likesParams.UserId = User.GetUserId();
         var users = await _likesRepository.GetUserLikes(likesParams);
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"GetUserLikes - {users.CurrentPage}, {users.PageSize}");
-        Console.ForegroundColor = ConsoleColor.White;
-
+        
         Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount,
             users.TotalPages));
 
