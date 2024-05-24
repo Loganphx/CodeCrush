@@ -11,11 +11,11 @@ public class AutoMapperProfiles : Profile
         CreateMap<AppUser, MemberDto>();
         CreateMap<Photo, PhotoDto>();
         CreateMap<Message, MessageDto>()
-            .ForMember(d => d.SenderPhotoUrl, o => 
+            .ForMember(d => d.SenderPhotoUrl, o =>
                 o.MapFrom(s => s.Sender.Photos.FirstOrDefault(x => x.IsMain).Url))
-        .ForMember(d => d.RecipientPhotoUrl, o => 
-                o.MapFrom(s => s.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url))
-            .ForMember(d => d.MessageSent, o => o.MapFrom(s => s.MessageSent.ToUniversalTime()))
-            .ForMember(d => d.DateRead, o => o.MapFrom(s => s.DateRead.HasValue ? s.DateRead.Value.ToUniversalTime() : default(DateTime?)));
+            .ForMember(d => d.RecipientPhotoUrl, o =>
+                o.MapFrom(s => s.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url));
+        // .ForMember(d => d.MessageSent, o => o.MapFrom(s => s.MessageSent.ToUniversalTime()))
+        // .ForMember(d => d.DateRead, o => o.MapFrom(s => s.DateRead.HasValue ? s.DateRead.Value.ToUniversalTime() : default(DateTime?)));
     }
 }

@@ -6,9 +6,7 @@ import { ToastrModule } from "ngx-toastr";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {FileUploadModule} from "ng2-file-upload";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
-import {PaginationModule} from "ngx-bootstrap/pagination";
-import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
-import {TimeagoModule} from "ngx-timeago";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [],
@@ -24,7 +22,7 @@ import {TimeagoModule} from "ngx-timeago";
     }),
     BsDatepickerModule.forRoot(),
     MatPaginatorModule,
-    FileUploadModule
+    FileUploadModule,
   ],
   exports: [
     BsDropdownModule,
@@ -34,7 +32,6 @@ import {TimeagoModule} from "ngx-timeago";
     FileUploadModule,
     BsDatepickerModule,
     MatPaginatorModule,
-    TimeagoModule
   ]
 })
 export class SharedModule { }

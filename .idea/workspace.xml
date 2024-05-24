@@ -5,30 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Setup Member Messaging">
-      <change afterPath="$PROJECT_DIR$/client/src/app/_models/message.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/app/_resolvers/member-detailed.resolver.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/app/_services/message.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/app/_services/paginationHelper.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/MessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/MessagesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Data/MessageRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/MessageRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Helpers/AutoMapperProfiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Helpers/AutoMapperProfiles.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/datingapp.db" beforeDir="false" afterPath="$PROJECT_DIR$/API/datingapp.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/app/_modules/shared.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_modules/shared.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/_services/members.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_services/members.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app-routing.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-card/member-card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-card/member-card.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/messages/messages.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/messages/messages.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/messages/messages.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/messages/messages.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/messages/messages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/messages/messages.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,8 +74,17 @@
       <workItem from="1715188758121" duration="20194000" />
       <workItem from="1716325023907" duration="10010000" />
       <workItem from="1716481110315" duration="4546000" />
-      <workItem from="1716500204631" duration="6997000" />
+      <workItem from="1716500204631" duration="7334000" />
     </task>
+    <task id="LOCAL-00001" summary="- Setup Member Messaging">
+      <option name="closed" value="true" />
+      <created>1716571847233</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716571847233</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -4,6 +4,8 @@ import {NgForOf, NgIf} from "@angular/common";
 import {SharedModule} from "../../_modules/shared.module";
 import {MessageService} from "../../_services/message.service";
 import {FormsModule, NgForm} from "@angular/forms";
+import { TimeagoModule } from 'ngx-timeago';
+
 
 @Component({
   selector: 'app-member-messages',
@@ -13,7 +15,8 @@ import {FormsModule, NgForm} from "@angular/forms";
     NgForOf,
     SharedModule,
     NgIf,
-    FormsModule
+    FormsModule,
+    TimeagoModule,
   ],
   styleUrls: ['./member-messages.component.scss']
 })
