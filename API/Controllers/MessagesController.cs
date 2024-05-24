@@ -54,11 +54,16 @@ public class MessagesController : BaseApiController
     public async Task<ActionResult<PagedList<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
     {
         messageParams.Username = User.GetUsername();
+
         
         var messages = await _messageRepository.GetMessagesForUser(messageParams);
         
         Response.AddPaginationHeader(new PaginationHeader(messages.CurrentPage, messages.PageSize,
             messages.TotalCount, messages.TotalPages));
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"GetMessageForUsers: {messages.Count}");
+        Console.ForegroundColor = ConsoleColor.White;
 
         return messages;
     }

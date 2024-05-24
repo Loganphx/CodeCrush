@@ -1,4 +1,5 @@
-﻿using API.DTOs;
+﻿using System.Diagnostics;
+using API.DTOs;
 using API.Entities;
 using API.Helpers;
 using API.Services;
@@ -62,7 +63,7 @@ public class MessageRepository : IMessageRepository
                         m.RecipientUsername == recipientUsername
                         && m.SenderUsername == currentUsername
             )
-            .OrderByDescending(m => m.MessageSent)
+            .OrderBy(m => m.MessageSent)
             .ToListAsync();
 
         var unreadMessages = messages

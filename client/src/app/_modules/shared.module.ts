@@ -8,6 +8,7 @@ import {FileUploadModule} from "ng2-file-upload";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import {TimeagoModule} from "ngx-timeago";
 
 @NgModule({
   declarations: [],
@@ -32,7 +33,8 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
     NgxSpinnerModule,
     FileUploadModule,
     BsDatepickerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TimeagoModule
   ]
 })
 export class SharedModule { }
