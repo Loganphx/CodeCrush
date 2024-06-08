@@ -27,7 +27,7 @@ public class MemberDto
     public MemberDto(AppUser user)
     {
         Id           = user.Id;
-        Username     = user.Username;
+        Username     = user.UserName;
         Age          = user.DateOfBirth.CalculateAge();
         KnownAs      = user.KnownAs;
         Created      = user.Created;

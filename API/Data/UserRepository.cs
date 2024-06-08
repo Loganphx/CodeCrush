@@ -2,31 +2,37 @@
 using API.DTOs;
 using API.Entities;
 using API.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services;
 
 public class UserRepository : IUserRepository
 {
-    private readonly DataContext         _context;
+    private readonly UserManager<AppUser>         _context;
 
     public UserRepository(
-        DataContext context)
+        UserManager<AppUser> context)
     {
         _context = context;
     }
-    public void Add(AppUser user)
+    public async Task<IdentityResult> CreateAsync(AppUser user, string password)
     {
-        _context.Users.Add(user);
-    }
-    public void Update(AppUser user)
-    {
-        _context.Entry(user).State = EntityState.Modified;
+        return await _context.CreateAsync(user, password);
     }
 
-    public async Task<bool> SaveAllAsync()
+    public async Task<IdentityResult> AddToRoleAsync(AppUser user, string roleName)
     {
-        return await _context.SaveChangesAsync() > 0;
+        return await _context.AddToRoleAsync(user, roleName);
+    }
+
+    public async Task<bool> CheckPasswordAsync(AppUser user, string password)
+    {
+        return await _context.CheckPasswordAsync(user, password);
+    }
+    public async Task<IdentityResult> UpdateAsync(AppUser user)
+    {
+        return await _context.UpdateAsync(user);
     }
 
     public async Task<PagedList<MemberDto>> GetUsersAsync(UserParams userParams)
@@ -34,7 +40,7 @@ public class UserRepository : IUserRepository
         
         var query = _context.Users.AsQueryable();
             
-        if(!string.IsNullOrEmpty(userParams.CurrentUsername)) query = query.Where(user => user.Username != userParams.CurrentUsername);
+        if(!string.IsNullOrEmpty(userParams.CurrentUsername)) query = query.Where(user => user.UserName != userParams.CurrentUsername);
         if(!string.IsNullOrEmpty(userParams.Gender)) query = query.Where(u => u.Gender == userParams.Gender);
         
         var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
@@ -57,13 +63,13 @@ public class UserRepository : IUserRepository
 
     public async Task<AppUser?> GetUserById(int id)
     {
-        return await _context.Users.FindAsync(id);
+        return await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
     }
 
     public async Task<AppUser?> GetUserByUsernameAsync(string username)
     {
         return await _context.Users
             .Include(p => p.Photos)
-            .FirstOrDefaultAsync(user => user.Username.ToLower() == username.ToLower());
+            .FirstOrDefaultAsync(user => user.UserName.ToLower() == username.ToLower());
     }
 }

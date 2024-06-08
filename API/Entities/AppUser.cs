@@ -1,29 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using API.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities;
 
-public class AppUser
+public class AppUser : IdentityUser<int>
 {
-    public int Id { get; set; }
+    // [Required]
+    // [EmailAddress] public string Email { get; set; } = "";
     
-    [Required]
-    public string Username { get; set; }
-    
-    [Required]
-    [EmailAddress]
-    public string Email { get; set; }
-    
-    [Required]
-    [JsonIgnore]
-    public byte[] PasswordHash { get; set; }
-    
-    [Required]
-    [JsonIgnore]
-    public byte[] PasswordSalt { get; set; }
-    
-    [JsonIgnore]
     public DateOnly DateOfBirth { get; set; }
 
     public string KnownAs { get; set; } = "";
@@ -44,4 +29,6 @@ public class AppUser
     
     public List<Message> MessagesSent { get; set; }
     public List<Message> MessagesReceived { get; set; }
+
+    public ICollection<AppUserRole> UserRoles { get; set; }
 }

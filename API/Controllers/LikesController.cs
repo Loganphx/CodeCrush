@@ -27,7 +27,7 @@ public class LikesController : BaseApiController
 
         if (likedUser == null) return NotFound();
 
-        if (sourceUser.Username == username) return BadRequest("You cannot like yourself.");
+        if (sourceUser.UserName == username) return BadRequest("You cannot like yourself.");
 
         UserLike? userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
 
@@ -42,9 +42,13 @@ public class LikesController : BaseApiController
         sourceUser.LikedUsers.Add(userLike);
 
         // TODO: Replace with Unit of work pattern 
-        if (await _userRepository.SaveAllAsync()) return Ok();
+        var updateResult = await _userRepository.UpdateAsync(sourceUser);
+        if (!updateResult.Succeeded)
+        {
+            return BadRequest("Failed to like user");
+        }
 
-        return BadRequest("Failed to like user");
+        return Ok();
     }
 
     [HttpGet]

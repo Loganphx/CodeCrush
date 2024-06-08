@@ -19,7 +19,7 @@ public class UserService : IUserService
     public async Task<PagedList<MemberDto>> GetMembersAsync(string username, UserParams userParams)
     {
         var currentUser = await _userRepository.GetUserByUsernameAsync(username);
-        userParams.CurrentUsername = currentUser.Username;
+        userParams.CurrentUsername = currentUser.UserName;
 
         if (string.IsNullOrEmpty(userParams.Gender))
         {
@@ -51,9 +51,12 @@ public class UserService : IUserService
         user.City         = memberUpdateDto.City;
         user.Country      = memberUpdateDto.Country;
 
-        if (await _userRepository.SaveAllAsync()) return;
+        var result = await _userRepository.UpdateAsync(user);
 
-        throw new BadRequestException("Failed to update user");
+        if (!result.Succeeded)
+        {
+            throw new BadRequestException("Failed to update user");
+        }
     }
 
     public async Task<PhotoDto> AddPhoto(string username, IFormFile file)
@@ -73,13 +76,15 @@ public class UserService : IUserService
         if(user.Photos.Count == 0) photo.IsMain = true;
         
         user.Photos.Add(photo);
-
-        if (await _userRepository.SaveAllAsync())
+        
+        var updateResult = await _userRepository.UpdateAsync(user);
+        
+        if (!updateResult.Succeeded)
         {
-            return new PhotoDto(photo);
+            throw new BadRequestException("Problem adding photo");
         }
         
-        throw new BadRequestException("Problem adding photo");
+        return new PhotoDto(photo);
     }
 
     public async Task SetMainPhoto(string username, int photoId)
@@ -95,10 +100,13 @@ public class UserService : IUserService
         var currentMainPhoto = user.Photos.FirstOrDefault(x => x.IsMain);
         if(currentMainPhoto != null) currentMainPhoto.IsMain = false;
         photo.IsMain = true;
-        
-        if (await _userRepository.SaveAllAsync()) return;
-        
-        throw new BadRequestException("Failed to set main photo");
+
+        var updateResult = await _userRepository.UpdateAsync(user);
+
+        if (!updateResult.Succeeded)
+        {
+            throw new BadRequestException("Failed to set main photo");
+        }
     }
 
     public async Task DeletePhoto(string username, int photoId)
@@ -118,9 +126,12 @@ public class UserService : IUserService
         }
         
         user.Photos.Remove(photo);
-        
-        if(await _userRepository.SaveAllAsync()) return; 
-        
-        throw new BadRequestException("Failed to delete photo");
+
+        var updateResult = await _userRepository.UpdateAsync(user);
+
+        if (!updateResult.Succeeded)
+        {
+            throw new BadRequestException("Failed to delete photo");
+        }
     }
 }

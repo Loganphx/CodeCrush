@@ -1,69 +1,71 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using API.Controllers;
-using API.Data;
-using API.DTOs;
+﻿using API.DTOs;
 using API.Entities;
 using API.Errors;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Services;
 
 public class AccountService : IAccountService
 {
-    private readonly ITokenService   _tokenService;
     private readonly IUserRepository _userRepository;
+    private readonly ITokenService   _tokenService;
+    private readonly IMapper _mapper;
 
-    public AccountService(ITokenService tokenService, IUserRepository userRepository)
+    public AccountService(IUserRepository userRepository, ITokenService tokenService, 
+        IMapper mapper)
     {
-        _tokenService        = tokenService;
         _userRepository = userRepository;
+        _tokenService        = tokenService;
+        _mapper = mapper;
     }
     
-    public async Task<UserDto> Register(RegisterRequest request)
+    public async Task<UserDto> Register(RegisterRequest registerDto)
     {
-        if (await UserExists(request.Username)) throw new BadRequestException("Username is already taken");
+        if (await UserExists(registerDto.Username)) throw new BadRequestException("Username is already taken");
         
-        using var hmac = new HMACSHA512();
-
+        // using var hmac = new HMACSHA512();
         var user = new AppUser()
         {
-            Username     = request.Username,
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(request.Password)),
-            PasswordSalt = hmac.Key,
-            Email = request.Email,
-            KnownAs = request.KnownAs,
-            Gender = request.Gender,
-            City = request.City,
-            Country = request.Country,
-            DateOfBirth = request.DateOfBirth,
+            UserName     = registerDto.Username,
+            // PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(request.Password)),
+            // PasswordSalt = hmac.Key,
+            Email = registerDto.Email,
+            KnownAs = registerDto.KnownAs,
+            Gender = registerDto.Gender,
+            City = registerDto.City,
+            Country = registerDto.Country,
+            DateOfBirth = registerDto.DateOfBirth,
         };
+        
+        user.UserName = registerDto.Username.ToLower();
+        
+        var result = await _userRepository.CreateAsync(user, registerDto.Password);
 
-        _userRepository.Add(user);
-        await _userRepository.SaveAllAsync();
+        if (!result.Succeeded) throw new BadRequestException(result.ToString());
 
-        return new UserDto(user.Username, _tokenService.CreateToken(user), user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs, user.Gender);
+        result = await _userRepository.AddToRoleAsync(user, "Member");
+        
+        if (!result.Succeeded) throw new BadRequestException(result.ToString());
+
+        
+        var token = await _tokenService.CreateToken(user);
+        return new UserDto(user.UserName, token, user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs, user.Gender);
     }
 
-    public async Task<ActionResult<UserDto>> Login(LoginRequest request)
+    public async Task<ActionResult<UserDto>> Login(LoginRequest loginDto)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(request.Username);
+        var user = await _userRepository.GetUserByUsernameAsync(loginDto.Username);
+        
+        if (user == null) throw new UnauthorizedException("Invalid Username");
 
-        if (user == null) throw new BadRequestException("Invalid Username");
+        var successful = await _userRepository.CheckPasswordAsync(user, loginDto.Password);
 
-        using var hmac         = new HMACSHA512(user.PasswordSalt);
-        var       computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
-
-        for (int i = 0; i < computedHash.Length; i++)
-        {
-            if (user.PasswordHash[i] != computedHash[i]) throw new BadRequestException("Invalid password");
-        }
-
-
-        var token = _tokenService.CreateToken(user);
-        return new UserDto(user.Username, token, user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs, user.Gender);
+        if (!successful) throw new UnauthorizedAccessException("Invalid password");
+        
+        var token = await _tokenService.CreateToken(user);
+        return new UserDto(user.UserName, token, user.Photos.FirstOrDefault(x => x.IsMain)?.Url, user.KnownAs, user.Gender);
 
     }
 
