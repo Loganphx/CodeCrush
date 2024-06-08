@@ -19,7 +19,6 @@ public class UsersController : BaseApiController
     }
     
     [HttpGet]
-    [Authorize(Roles = "Member")]
     // GET: api/users/ 
     public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
@@ -33,7 +32,6 @@ public class UsersController : BaseApiController
     }
     
     [HttpGet("{username}")] //api/users/2
-    [Authorize(Roles = "Member")]
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
         return Ok(await _userService.GetMemberAsync(username));

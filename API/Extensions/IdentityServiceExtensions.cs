@@ -21,6 +21,7 @@ public static class IdentityServiceExtensions
             .AddRoleManager<RoleManager<AppRole>>()
             .AddEntityFrameworkStores<DataContext>();
 
+        // AUTHENTICATION Comes before Authorization
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
         {
             options.TokenValidationParameters = new TokenValidationParameters
@@ -31,6 +32,12 @@ public static class IdentityServiceExtensions
                 ValidateIssuer = false,
                 ValidateAudience = false,
             };
+        });
+
+        services.AddAuthorization(opt =>
+        {
+            opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+            opt.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
         });
 
         return services;
