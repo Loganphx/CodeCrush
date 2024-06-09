@@ -7,6 +7,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {FileUploadModule} from "ng2-file-upload";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {ModalModule} from "ngx-bootstrap/modal";
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     BsDatepickerModule.forRoot(),
     MatPaginatorModule,
     FileUploadModule,
+    ModalModule.forRoot(),
   ],
   exports: [
     BsDropdownModule,
@@ -32,6 +34,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     FileUploadModule,
     BsDatepickerModule,
     MatPaginatorModule,
+    ModalModule,
   ]
 })
 export class SharedModule { }
