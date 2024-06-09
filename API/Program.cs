@@ -5,6 +5,7 @@ using API.Helpers;
 using API.Interfaces;
 using API.Middleware;
 using API.Services;
+using API.SignalR;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,9 @@ builder.Services.AddScoped<LogUserActivity>();
 builder.Services.AddScoped<ILikesRepository, LikesRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<PresenceTracker>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -48,6 +52,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(builder => builder
      .AllowAnyHeader()
      .AllowAnyMethod()
+     .AllowCredentials()
      .WithOrigins("https://localhost:4200"));
  
 app.UseHttpsRedirection();
@@ -56,6 +61,8 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
+// app.MapHub<MessageHub>("hubs/message");
 
 using var scope    = app.Services.CreateScope();
 var       services = scope.ServiceProvider;
