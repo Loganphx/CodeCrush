@@ -9,6 +9,7 @@ import {TimeagoModule} from "ngx-timeago";
 import {MemberMessagesComponent} from "../member-messages/member-messages.component";
 import {MessageService} from "../../_services/message.service";
 import {Message} from "../../_models/message";
+import {PresenceService} from "../../_services/presence.service";
 
 @Component({
   selector: 'app-member-detail',
@@ -26,7 +27,8 @@ export class MemberDetailComponent implements OnInit {
 
   constructor(private membersService: MembersService,
               private route: ActivatedRoute,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              public presenceService: PresenceService) {
   }
 
   ngOnInit(): void {
