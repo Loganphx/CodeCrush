@@ -55,7 +55,6 @@ export class UserManagementComponent implements OnInit {
           this.adminService.updateUserRoles(user.username, selectedRoles.join(',')).subscribe({
             next: roles => user.roles = roles
           })
-
         }
       }
     })

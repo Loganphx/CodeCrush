@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Added User Management and Photo Management components to Admin Panel Component">
-      <change afterPath="$PROJECT_DIR$/client/src/app/_services/admin.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.html" afterDir="false" />
+    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Created README for current features and planned features.">
+      <change beforePath="$PROJECT_DIR$/client/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/angular.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +84,7 @@
       <workItem from="1716481110315" duration="4546000" />
       <workItem from="1716500204631" duration="14062000" />
       <workItem from="1717708132917" duration="2000" />
-      <workItem from="1717873601017" duration="4260000" />
+      <workItem from="1717873601017" duration="10773000" />
     </task>
     <task id="LOCAL-00001" summary="- Setup Member Messaging">
       <option name="closed" value="true" />
@@ -151,7 +150,39 @@
       <option name="project" value="LOCAL" />
       <updated>1717893840666</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="- Created Admin Service to get Users with Roles from API &#10;- Updated User Management Component to use Admin Service to display user role data.">
+      <option name="closed" value="true" />
+      <created>1717894453021</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1717894453021</updated>
+    </task>
+    <task id="LOCAL-00010" summary="- Added HttpGet GetAvailableRoles to return the list of all possible roles to AdminController">
+      <option name="closed" value="true" />
+      <created>1717902531093</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1717902531093</updated>
+    </task>
+    <task id="LOCAL-00011" summary="- Created Roles Modal for the User Management Component to allow for role updating.">
+      <option name="closed" value="true" />
+      <created>1717902920623</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1717902920623</updated>
+    </task>
+    <task id="LOCAL-00012" summary="- Created README for current features and planned features.">
+      <option name="closed" value="true" />
+      <created>1717902939265</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1717902939265</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,7 +208,11 @@
     <MESSAGE value="- Created Admin Auth Guard to prevent users without admin credentials from accessing the admin page." />
     <MESSAGE value="- Created the Structure Directive HasRole which checks if the user has the appropriate role." />
     <MESSAGE value="- Added User Management and Photo Management components to Admin Panel Component" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added User Management and Photo Management components to Admin Panel Component" />
+    <MESSAGE value="- Created Admin Service to get Users with Roles from API &#10;- Updated User Management Component to use Admin Service to display user role data." />
+    <MESSAGE value="- Added HttpGet GetAvailableRoles to return the list of all possible roles to AdminController" />
+    <MESSAGE value="- Created Roles Modal for the User Management Component to allow for role updating." />
+    <MESSAGE value="- Created README for current features and planned features." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Created README for current features and planned features." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
