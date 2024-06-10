@@ -3,12 +3,14 @@
 <h3>Current Backend Features</h3>
 - MySQL Database
 - EntityFramework
-- .Net Core Identity for Authentication and Authorization
+- .Net Identity
+- Policy based Authorization
 
 <h3>Current Frontend Features</h3>
-- Angular
+- Angular + HTML5
 - Typescript
 - Bootstrap
+- Toastr
 - Modals
 
 <h2>Planned Features</h2>

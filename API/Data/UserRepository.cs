@@ -2,6 +2,7 @@
 using API.DTOs;
 using API.Entities;
 using API.Helpers;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,14 @@ namespace API.Services;
 public class UserRepository : IUserRepository
 {
     private readonly UserManager<AppUser>         _context;
+    private readonly IMapper _mapper;
 
     public UserRepository(
-        UserManager<AppUser> context)
+        UserManager<AppUser> context,
+        IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
     public async Task<IdentityResult> CreateAsync(AppUser user, string password)
     {
@@ -57,7 +61,7 @@ public class UserRepository : IUserRepository
             _              => query.OrderByDescending(u => u.LastActive)
         };
         return await PagedList<MemberDto>.CreateAsync(query.Include(p => p.Photos)
-            .Select(user => new MemberDto(user))
+            .Select(user => _mapper.Map<MemberDto>(user))
             .AsNoTracking(), userParams.PageNumber, userParams.PageSize);
     }
 

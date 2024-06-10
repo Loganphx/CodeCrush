@@ -9,7 +9,7 @@ public class MemberDto
     
     public string Username { get; set; }
 
-    public int Age { get; set; }
+    public int Age { get; set; } 
 
     public string KnownAs { get; set; }
 
@@ -23,22 +23,4 @@ public class MemberDto
     public string         City         { get; set; } 
     public string         Country      { get; set; } 
     public List<PhotoDto> Photos       { get; set; }
-
-    public MemberDto(AppUser user)
-    {
-        Id           = user.Id;
-        Username     = user.UserName;
-        Age          = user.DateOfBirth.CalculateAge();
-        KnownAs      = user.KnownAs;
-        Created      = user.Created;
-        LastActive   = user.LastActive;
-        Gender       = user.Gender;
-        Introduction = user.Introduction;
-        LookingFor   = user.LookingFor;
-        Interests    = user.Interests;
-        City         = user.City;
-        Country      = user.Country;
-        Photos       = user.Photos.Select(photo => new PhotoDto(photo)).ToList();
-        PhotoUrl     = user.Photos.FirstOrDefault(photo => photo.IsMain)?.Url;   
-    }
 }
