@@ -4,9 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Created README for current features and planned features.">
-      <change beforePath="$PROJECT_DIR$/client/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.ts" afterDir="false" />
+    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Tied Presence Tracker into Front end to display when users are online">
+      <change afterPath="$PROJECT_DIR$/API/Entities/Connection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Entities/Group.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/SignalR/MessageHub.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/app/_services/customRouteReuseStrategy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/MemberDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/DTOs/MemberDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/PhotoDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/DTOs/PhotoDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Data/DataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/DataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Data/MessageRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/MessageRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Data/Migrations/DataContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/Migrations/DataContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Data/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Helpers/AutoMapperProfiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Helpers/AutoMapperProfiles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Interfaces/IMessageRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Interfaces/IMessageRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/API/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Services/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/SignalR/PresenceTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/SignalR/PresenceTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/datingapp.db" beforeDir="false" afterPath="$PROJECT_DIR$/API/datingapp.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/_models/member.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_models/member.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/_services/message.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_services/message.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/_services/presence.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_services/presence.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-detail/member-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +108,7 @@
       <workItem from="1716481110315" duration="4546000" />
       <workItem from="1716500204631" duration="14062000" />
       <workItem from="1717708132917" duration="2000" />
-      <workItem from="1717873601017" duration="10773000" />
+      <workItem from="1717873601017" duration="27628000" />
     </task>
     <task id="LOCAL-00001" summary="- Setup Member Messaging">
       <option name="closed" value="true" />
@@ -182,7 +206,31 @@
       <option name="project" value="LOCAL" />
       <updated>1717902939265</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="- Fixed Issue with SSL cert being invalid.">
+      <option name="closed" value="true" />
+      <created>1717907195800</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1717907195800</updated>
+    </task>
+    <task id="LOCAL-00014" summary="- Created PresenceHub and PresenceTracker for Backend using SignalR">
+      <option name="closed" value="true" />
+      <created>1717964420312</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1717964420312</updated>
+    </task>
+    <task id="LOCAL-00015" summary="- Tied Presence Tracker into Front end to display when users are online">
+      <option name="closed" value="true" />
+      <created>1717964476697</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1717964476697</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,15 +260,24 @@
     <MESSAGE value="- Added HttpGet GetAvailableRoles to return the list of all possible roles to AdminController" />
     <MESSAGE value="- Created Roles Modal for the User Management Component to allow for role updating." />
     <MESSAGE value="- Created README for current features and planned features." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Created README for current features and planned features." />
+    <MESSAGE value="- Fixed Issue with SSL cert being invalid." />
+    <MESSAGE value="- Created PresenceHub and PresenceTracker for Backend using SignalR" />
+    <MESSAGE value="- Tied Presence Tracker into Front end to display when users are online" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Tied Presence Tracker into Front end to display when users are online" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/app/_services/message.service.ts</url>
-          <line>19</line>
+          <line>67</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/app/_services/message.service.ts</url>
+          <line>15</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

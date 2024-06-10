@@ -6,8 +6,8 @@ export interface Member {
   age: number
   knownAs: string
   photoUrl: string
-  created: string
-  lastActive: string
+  created: Date
+  lastActive: Date
   gender: string
   introduction: string
   lookingFor: string
