@@ -1,4 +1,8 @@
-﻿using API.Entities;
+﻿using API.Data;
+using API.DTOs;
+using API.Entities;
+using API.Extensions;
+using API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,29 +10,58 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
+public class RoleDto
+{
+    public string Username { get; set; }
+    public IEnumerable<string> Roles { get; set; }
+}
 public class AdminController : BaseApiController
 {
+    private readonly DataContext _context;
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
 
-    public AdminController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+    public AdminController(DataContext _context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
     {
+        this._context = _context;
         _userManager = userManager;
         _roleManager = roleManager;
     }
 
     [Authorize(Policy = "RequireAdminRole")]
     [HttpGet("users-with-roles")]
-    public async Task<ActionResult> GetUserWithRoles()
+    public async Task<ActionResult<PagedList<RoleDto>>> GetUserWithRoles([FromQuery] RoleParams userParams)
     {
-        var users = await _userManager.Users
-            .OrderBy(u => u.UserName)
-            .Select(u => new
+        var query = _context.Users.AsQueryable();
+
+        // if (!string.IsNullOrEmpty(userParams.CurrentUsername)) query = query.Where(user => user.UserName != userParams.CurrentUsername);
+        // if (!string.IsNullOrEmpty(userParams.Gender)) query = query.Where(u => u.Gender == userParams.Gender);
+
+        // var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
+        // var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
+
+        // query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+
+        query = userParams.OrderBy switch
+        {
+            "age" => query.OrderByDescending(u => u.DateOfBirth),
+            "name" => query.OrderBy(u => u.KnownAs),
+            "created" => query.OrderByDescending(u => u.Created),
+            "lastActive" => query.OrderByDescending(u => u.LastActive),
+            _ => query.OrderBy(u => u.KnownAs)
+        };
+     
+        var users = await PagedList<RoleDto>.CreateAsync(query
+            .Select(u => new RoleDto()
             {
-                u.Id,
                 Username = u.UserName,
-                Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
-            }).ToListAsync();
+                Roles = u.UserRoles.Select(r => r.Role.Name)
+            })
+            .AsNoTracking(), userParams.PageNumber, userParams.PageSize);
+
+        var paginationHeader = new PaginationHeader(users.CurrentPage, users.PageSize,
+            users.TotalCount, users.TotalPages);
+        Response.AddPaginationHeader(paginationHeader);
 
         return Ok(users);
     }
