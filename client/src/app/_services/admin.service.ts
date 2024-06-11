@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {User} from "../_models/user";
+import {Role, User} from "../_models/user";
+import {RoleParams, UserParams} from "../_models/userParams";
+import {getPaginatedResult, getPaginationHeaders} from "./paginationHelper";
+import {Observable} from "rxjs";
+import {PaginatedResult} from "../_models/pagination";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +17,13 @@ export class AdminService {
   }
 
 
-  getUserWithRoles() {
-    return this.http.get<User[]>(this.baseUrl + 'admin/users-with-roles');
+  getUserWithRoles(roleParams: RoleParams): Observable<PaginatedResult<Role[]>> {
+    // return this.http.get<User[]>(this.baseUrl + 'admin/users-with-roles');
+    let params = getPaginationHeaders(roleParams.pageIndex, roleParams.pageSize)
+
+    params = params.set('orderBy', roleParams.orderBy)
+
+    return getPaginatedResult(this.baseUrl + 'admin/users-with-roles', params, this.http);
   }
 
   getAvailableRoles() {

@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from "../../_services/admin.service";
-import {User} from "../../_models/user";
+import {Role, User} from "../../_models/user";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {RolesModalComponent} from "../../modals/roles-modal/roles-modal.component";
+import {Pagination} from "../../_models/pagination";
+import {RoleParams, UserParams} from "../../_models/userParams";
 
 @Component({
   selector: 'app-user-management',
@@ -10,9 +12,17 @@ import {RolesModalComponent} from "../../modals/roles-modal/roles-modal.componen
   styleUrls: ['./user-management.component.scss']
 })
 export class UserManagementComponent implements OnInit {
-  users: User[] = [];
+  pagination: Pagination | undefined;
+  userParams?: RoleParams;
+  users: Role[] = [];
   availableRoles: string[] = [];
   bsModalRef: BsModalRef<RolesModalComponent> = new BsModalRef<RolesModalComponent>();
+  orderByList = [
+    {value: 'age', display: 'Age'},
+    {value: 'name', display: 'Name'},
+    {value: 'created', display: 'Created'},
+    {value: 'lastActive', display: 'Last Active'}
+  ]
 
   constructor(
     private adminService: AdminService,
@@ -20,13 +30,20 @@ export class UserManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userParams = new RoleParams();
     this.getUsersWithRoles();
     this.getAvailableRoles();
+
+    console.log(this.userParams)
+    console.log(this.pagination)
   }
 
   getUsersWithRoles(): void {
-    this.adminService.getUserWithRoles().subscribe({
-      next: users => this.users = users
+    this.adminService.getUserWithRoles(this.userParams!).subscribe({
+      next: users => {
+        this.users = users.result!;
+        this.pagination = users.pagination;
+      }
     })
   }
 
@@ -36,7 +53,7 @@ export class UserManagementComponent implements OnInit {
     })
   }
 
-  openRolesModal(user: User): void {
+  openRolesModal(user: Role): void {
     console.log(this.availableRoles)
     const config: ModalOptions = {
       class: 'modal-dialog-centered',
@@ -58,6 +75,21 @@ export class UserManagementComponent implements OnInit {
         }
       }
     })
+  }
+
+  resetFilters() {
+    // if (this.user) {
+      this.userParams = new RoleParams();
+      this.getUsersWithRoles();
+    // }
+  }
+
+  pageChanged(event: any) {
+    console.log("pageChanged", event)
+    if (!this.userParams) return;
+    this.userParams.pageIndex = event.pageIndex + 1;
+    this.userParams.pageSize = event.pageSize;
+    this.getUsersWithRoles();
   }
 
   private arrayEqual(array1: any[], array2: any[]): boolean {

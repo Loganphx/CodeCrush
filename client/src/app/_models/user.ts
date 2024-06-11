@@ -7,3 +7,9 @@ export interface User
   gender: string;
   roles: string[];
 }
+
+export interface Role {
+  username: string;
+  roles: string[];
+
+}

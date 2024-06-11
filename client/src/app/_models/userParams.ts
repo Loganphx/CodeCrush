@@ -20,3 +20,7 @@ export class UserParams extends PaginationParams {
 export class LikesParams extends PaginationParams {
   predicate: string = "liked";
 }
+
+export class RoleParams extends PaginationParams {
+  orderBy: string = "name";
+}
