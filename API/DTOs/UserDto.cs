@@ -10,13 +10,4 @@ public class UserDto
     
     public string KnownAs { get; set; }
     public string Gender { get; set; }
-
-    public UserDto(string username, string token, string photoUrl, string knownAs, string gender)
-    {
-        Username = username;
-        Token    = token;
-        PhotoUrl = photoUrl;
-        KnownAs  = knownAs;
-        Gender   = gender;
-    }
 }

@@ -9,38 +9,38 @@ namespace API.Services;
 
 public class UserService : IUserService
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IPhotoService _photoService;
     private readonly IMapper _mapper;
 
     public UserService(
-        IUserRepository userRepository,
+        IUnitOfWork unitOfWork,
         IPhotoService photoService,
         IMapper mapper)
     {
-        _userRepository = userRepository;
+        _unitOfWork = unitOfWork;
         _photoService = photoService;
         _mapper = mapper;
     }
 
     public async Task<PagedList<MemberDto>> GetMembersAsync(string username, UserParams userParams)
     {
-        var currentUser = await _userRepository.GetUserByUsernameAsync(username);
-        userParams.CurrentUsername = currentUser.UserName;
+        var currentGender = await _unitOfWork.UserRepository.GetUserGender(username);
+        userParams.CurrentUsername = username;
 
         if (string.IsNullOrEmpty(userParams.Gender))
         {
-            userParams.Gender = currentUser.Gender == "male" ? "female" : "male";
+            userParams.Gender = currentGender == "male" ? "female" : "male";
         }
 
-        var users = await _userRepository.GetUsersAsync(userParams);
+        var users = await _unitOfWork.UserRepository.GetUsersAsync(userParams);
 
         return users;
     }
 
     public async Task<MemberDto> GetMemberAsync(string username)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
         if (user == null) throw new BadRequestException("No valid user was found with that username");
 
         return _mapper.Map<MemberDto>(user);
@@ -48,7 +48,7 @@ public class UserService : IUserService
 
     public async Task UpdateUser(string username, MemberUpdateDto memberUpdateDto)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
         if (user == null) throw new BadRequestException($"User with {username} not found");
 
         user.KnownAs = memberUpdateDto.KnownAs;
@@ -58,9 +58,9 @@ public class UserService : IUserService
         user.City = memberUpdateDto.City;
         user.Country = memberUpdateDto.Country;
 
-        var result = await _userRepository.UpdateAsync(user);
+        var result = await _unitOfWork.Complete();
 
-        if (!result.Succeeded)
+        if (!result)
         {
             throw new BadRequestException("Failed to update user");
         }
@@ -68,7 +68,7 @@ public class UserService : IUserService
 
     public async Task<PhotoDto> AddPhoto(string username, IFormFile file)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
         if (user == null) throw new BadRequestException($"User with {username} not found");
 
         var result = await _photoService.AddPhotoAsync(file);
@@ -84,9 +84,9 @@ public class UserService : IUserService
 
         user.Photos.Add(photo);
 
-        var updateResult = await _userRepository.UpdateAsync(user);
+        var updateResult = await _unitOfWork.Complete();
 
-        if (!updateResult.Succeeded)
+        if (!updateResult)
         {
             throw new BadRequestException("Problem adding photo");
         }
@@ -96,7 +96,7 @@ public class UserService : IUserService
 
     public async Task SetMainPhoto(string username, int photoId)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
         if (user == null) throw new BadRequestException($"User with {username} not found");
 
         var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
@@ -108,9 +108,9 @@ public class UserService : IUserService
         if (currentMainPhoto != null) currentMainPhoto.IsMain = false;
         photo.IsMain = true;
 
-        var updateResult = await _userRepository.UpdateAsync(user);
+        var updateResult = await _unitOfWork.Complete();
 
-        if (!updateResult.Succeeded)
+        if (!updateResult)
         {
             throw new BadRequestException("Failed to set main photo");
         }
@@ -118,7 +118,7 @@ public class UserService : IUserService
 
     public async Task DeletePhoto(string username, int photoId)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
         if (user == null) throw new UnauthorizedException($"User with {username} not found");
         var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
 
@@ -134,9 +134,9 @@ public class UserService : IUserService
 
         user.Photos.Remove(photo);
 
-        var updateResult = await _userRepository.UpdateAsync(user);
+        var updateResult = await _unitOfWork.Complete();
 
-        if (!updateResult.Succeeded)
+        if (!updateResult)
         {
             throw new BadRequestException("Failed to delete photo");
         }

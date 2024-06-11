@@ -14,6 +14,7 @@
 - Modals
 
 <h2>Planned Features</h2>
+- Unread Notifications on Navbar
 - Paginate Admin - User Management
 - Redis/Rabbit (Some sort of caching)
 - Run API and Frontend on Docker
