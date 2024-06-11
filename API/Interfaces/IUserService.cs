@@ -8,7 +8,7 @@ namespace API.Interfaces;
 public interface IUserService
 {
     public Task<PagedList<MemberDto>> GetMembersAsync(string username, UserParams userParams);  
-    public Task<MemberDto>            GetMemberAsync(string username);
+    public Task<MemberDto>            GetMemberAsync(string username, bool filterPhotos);
     public Task                       UpdateUser(string      username, MemberUpdateDto memberUpdateDto);
     public Task<PhotoDto>             AddPhoto(string        username, IFormFile       file);
     public Task                       SetMainPhoto(string    username, int             photoId);

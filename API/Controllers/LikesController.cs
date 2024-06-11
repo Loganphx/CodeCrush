@@ -20,7 +20,7 @@ public class LikesController : BaseApiController
     public async Task<ActionResult> AddLike(string username)
     {
         var sourceUserId = User.GetUserId();
-        var likedUser = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        var likedUser = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, true);
         var sourceUser = await _unitOfWork.LikesRepository.GetUserWithLikes(sourceUserId);
 
         if (likedUser == null) return NotFound();

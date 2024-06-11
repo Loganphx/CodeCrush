@@ -1,4 +1,5 @@
-﻿using API.DTOs;
+﻿using API.Controllers;
+using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using AutoMapper;
@@ -19,6 +20,9 @@ public class AutoMapperProfiles : Profile
             .ForMember(dest => dest.PhotoUrl,
                 opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url));
         CreateMap<Photo, PhotoDto>();
+        CreateMap<Photo, PhotoForApprovalDto>()
+            .ForMember(dest => dest.PhotoId,
+                opt => opt.MapFrom(src => src.Id));
         // .ForMember(p => p.Url, o => 
         //     o.MapFrom(s => s.Url));
         CreateMap<Message, MessageDto>()

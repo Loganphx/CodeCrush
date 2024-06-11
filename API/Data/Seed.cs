@@ -41,6 +41,8 @@ public class Seed
             // user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
             // user.PasswordSalt = hmac.Key;
             user.Email = user.UserName + "@gmail.com";
+
+            foreach (var photo in user.Photos) photo.IsApproved = true;
             
             result = await userManager.CreateAsync(user, "Password21");
             if (!result.Succeeded)

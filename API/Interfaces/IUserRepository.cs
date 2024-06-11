@@ -11,8 +11,9 @@ public interface IUserRepository
     Task<IdentityResult>                       AddToRoleAsync(AppUser    user, string roleName);
     Task<bool> CheckPasswordAsync(AppUser user, string password);
     Task<PagedList<MemberDto>> GetUsersAsync(UserParams      userParams);
-    Task<AppUser?>             GetUserById(int               id);
-    Task<AppUser?>             GetUserByUsernameAsync(string username);
+    Task<AppUser>             GetUserById(int               id);
+    Task<AppUser> GetUserByPhotoId(Photo photo);
+    Task<AppUser>             GetUserByUsernameAsync(string username, bool filterPhotos);
     Task<string> GetUserGender(string username);
 
 }

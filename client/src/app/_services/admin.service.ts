@@ -6,6 +6,7 @@ import {RoleParams, UserParams} from "../_models/userParams";
 import {getPaginatedResult, getPaginationHeaders} from "./paginationHelper";
 import {Observable} from "rxjs";
 import {PaginatedResult} from "../_models/pagination";
+import {Photo, PhotoForApproval} from "../_models/photo";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,16 @@ export class AdminService {
   }
   updateUserRoles(username: string, roles: string) {
     return this.http.post<string[]>(this.baseUrl + 'admin/edit-roles/' + username + '?roles=' + roles, {})
+  }
+
+  getUnapprovedPhotos(): Observable<PhotoForApproval[]> {
+    return this.http.get<PhotoForApproval[]>(this.baseUrl + 'admin/unapproved-photos')
+  }
+
+  approvePhoto(photoId: number) {
+    return this.http.post<PhotoForApproval[]>(this.baseUrl + 'admin/approve-photo/' + photoId, {});
+  }
+  rejectPhoto(photoId: number) {
+    return this.http.post<PhotoForApproval[]>(this.baseUrl + 'admin/reject-photo/' + photoId, {});
   }
 }

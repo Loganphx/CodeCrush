@@ -1,5 +1,5 @@
 <!--<div class="d-flex justify-content-center" *ngIf="pagination">-->
-<div>
+<div *ngIf="pagination">
   <div class="row">
     <table class="table">
       <thead>
@@ -19,8 +19,8 @@
     </table>
   </div>
 
-  <mat-paginator [length]="pagination!.totalItems"
-                 [pageSize]="pagination!.itemsPerPage"
+  <mat-paginator [length]="pagination.totalItems"
+                 [pageSize]="pagination.itemsPerPage"
                  [pageSizeOptions]="[5, 10, 25, 50]"
                  (page)="pageChanged($event)"
                  aria-label="Select page">

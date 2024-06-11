@@ -13,6 +13,7 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
     {
     }
 
+    public DbSet<Photo> Photos { get; set; }
     public DbSet<UserLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<Group> Groups { get; set; }

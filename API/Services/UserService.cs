@@ -38,9 +38,9 @@ public class UserService : IUserService
         return users;
     }
 
-    public async Task<MemberDto> GetMemberAsync(string username)
+    public async Task<MemberDto> GetMemberAsync(string username, bool filterPhotos)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, filterPhotos);
         if (user == null) throw new BadRequestException("No valid user was found with that username");
 
         return _mapper.Map<MemberDto>(user);
@@ -48,7 +48,7 @@ public class UserService : IUserService
 
     public async Task UpdateUser(string username, MemberUpdateDto memberUpdateDto)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, false);
         if (user == null) throw new BadRequestException($"User with {username} not found");
 
         user.KnownAs = memberUpdateDto.KnownAs;
@@ -68,7 +68,7 @@ public class UserService : IUserService
 
     public async Task<PhotoDto> AddPhoto(string username, IFormFile file)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, false);
         if (user == null) throw new BadRequestException($"User with {username} not found");
 
         var result = await _photoService.AddPhotoAsync(file);
@@ -80,7 +80,7 @@ public class UserService : IUserService
             PublicId = result.PublicId
         };
 
-        if (user.Photos.Count == 0) photo.IsMain = true;
+        // if (user.Photos.Count == 0) photo.IsMain = true;
 
         user.Photos.Add(photo);
 
@@ -96,7 +96,7 @@ public class UserService : IUserService
 
     public async Task SetMainPhoto(string username, int photoId)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, false);
         if (user == null) throw new BadRequestException($"User with {username} not found");
 
         var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
@@ -118,7 +118,7 @@ public class UserService : IUserService
 
     public async Task DeletePhoto(string username, int photoId)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, false);
         if (user == null) throw new UnauthorizedException($"User with {username} not found");
         var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
 

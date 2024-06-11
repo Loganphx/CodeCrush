@@ -2,6 +2,7 @@
 using API.DTOs;
 using API.Entities;
 using API.Helpers;
+using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -62,7 +63,7 @@ public class UserRepository : IUserRepository
             "lastActive" => query.OrderByDescending(u => u.LastActive),
             _ => query.OrderByDescending(u => u.LastActive)
         };
-        return await PagedList<MemberDto>.CreateAsync(query.Include(p => p.Photos)
+        return await PagedList<MemberDto>.CreateAsync(query.Include(p => p.Photos.Where(o => o.IsApproved))
             .Select(user => _mapper.Map<MemberDto>(user))
             .AsNoTracking(), userParams.PageNumber, userParams.PageSize);
     }
@@ -72,11 +73,24 @@ public class UserRepository : IUserRepository
         return await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
     }
 
-    public async Task<AppUser?> GetUserByUsernameAsync(string username)
+    public async Task<AppUser> GetUserByPhotoId(Photo photo)
     {
-        return await _context.Users
-            .Include(p => p.Photos)
-            .FirstOrDefaultAsync(user => user.UserName.ToLower() == username.ToLower());
+        return await GetUserById(photo.AppUserId);
+    }
+
+    public async Task<AppUser?> GetUserByUsernameAsync(string username, bool filterPhotos = true)
+    {
+        var query = _context.Users;
+        if (filterPhotos)
+        {
+            query = query.Include(p => p.Photos.Where(o => o.IsApproved));
+        }
+        else
+        {
+            query = query.Include(p => p.Photos);
+
+        }
+        return await query.FirstOrDefaultAsync(user => user.UserName.ToLower() == username.ToLower());
     }
 
     public async Task<string> GetUserGender(string username)

@@ -62,8 +62,8 @@ public class MessageHub : Hub
         if (username.ToLower() == createMessageDto.RecipientUsername.ToLower())
             throw new HubException("You cannot send messages to yourself");
 
-        var sender = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username)!;
-        var recipient = await _unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+        var sender = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, true)!;
+        var recipient = await _unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername, true);
 
         if (recipient == null) throw new HubException($"Failed to find user with name {createMessageDto.RecipientUsername}");
 

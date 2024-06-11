@@ -27,8 +27,8 @@ public class MessagesController : BaseApiController
         if (username.ToLower() == createMessageDto.RecipientUsername.ToLower())
             return BadRequest("You cannot send messages to yourself");
 
-        var sender = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username)!;
-        var recipient = await _unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+        var sender = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, true)!;
+        var recipient = await _unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername, true);
 
         if (recipient == null) return NotFound($"Failed to find user with name {createMessageDto.RecipientUsername}");
 

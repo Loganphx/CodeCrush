@@ -1,1 +1,46 @@
-<p>photo-management works!</p>
+<!--<div class="row">-->
+<!--  <table class="table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th style="width: 30%">Username</th>-->
+<!--      <th style="width: 40%">Active Roles</th>-->
+<!--      <th style="width: 30%"></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let user of photos">-->
+<!--      <td>-->
+<!--        <img class="rounded-circle"-->
+<!--             src="{{user.url || './assets/user.png'}}"-->
+<!--             alt="image of user">-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <button class="btn btn-info">Approve</button>-->
+<!--        <button class="btn btn-warning">Reject</button>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->
+
+<div class="row">
+  <div class="col-2" *ngFor="let member of photos">
+    <div class="mb-4">
+      <div class="card mb-2" *ngIf="member">
+        <h4 class="card-title text-center mb-1">
+          {{ member.username }}
+        </h4>
+
+        <div class="card-img-wrapper" *ngIf="member.url || './assets/user.png'">
+          <img src="{{member.url || './assets/user.png'}}" alt="{{member.username}}" class="card-img-top">
+        </div>
+      </div>
+      <div class="card-body p-1">
+        <h6 class="card-title text-center mb-1">
+          <button (click)="approvePhoto(member.photoId)" class="btn btn-outline-info mb-1">Approve</button>
+          <button (click)="rejectPhoto(member.photoId)" class="btn btn-outline-danger">Reject</button>
+        </h6>
+      </div>
+    </div>
+  </div>
+</div>

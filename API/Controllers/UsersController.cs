@@ -34,7 +34,8 @@ public class UsersController : BaseApiController
     [HttpGet("{username}")] //api/users/2
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
-        return Ok(await _userService.GetMemberAsync(username));
+        var isPersonal = username.ToLower() == User.GetUsername().ToLower();
+        return Ok(await _userService.GetMemberAsync(username, !isPersonal));
     }
     
     [HttpPut]

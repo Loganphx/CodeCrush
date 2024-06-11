@@ -63,7 +63,7 @@ public class AccountService : IAccountService
 
     public async Task<ActionResult<UserDto>> Login(LoginRequest loginDto)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(loginDto.Username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(loginDto.Username, false);
 
         if (user == null) throw new UnauthorizedException("Invalid Username");
 
@@ -80,6 +80,6 @@ public class AccountService : IAccountService
 
     private async Task<bool> UserExists(string username)
     {
-        return await _unitOfWork.UserRepository.GetUserByUsernameAsync(username) != null;
+        return await _unitOfWork.UserRepository.GetUserByUsernameAsync(username, true) != null;
     }
 }

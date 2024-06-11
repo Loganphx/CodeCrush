@@ -1,8 +1,9 @@
 ﻿using API.Data;
-using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.Helpers;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,17 +16,34 @@ public class RoleDto
     public string Username { get; set; }
     public IEnumerable<string> Roles { get; set; }
 }
+
+public class PhotoForApprovalDto
+{
+    public int PhotoId { get; set; }
+    public string Url { get; set; }
+    public string Username { get; set; }
+    public bool IsApproved { get; set; }
+}
 public class AdminController : BaseApiController
 {
     private readonly DataContext _context;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
+    private readonly IMapper _mapper;
 
-    public AdminController(DataContext _context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+    public AdminController(
+        DataContext context,
+        IUnitOfWork unitOfWork,
+        UserManager<AppUser> userManager, 
+        RoleManager<AppRole> roleManager,
+        IMapper mapper)
     {
-        this._context = _context;
+        _context = context;
+        _unitOfWork = unitOfWork;
         _userManager = userManager;
         _roleManager = roleManager;
+        _mapper = mapper;
     }
 
     [Authorize(Policy = "RequireAdminRole")]
@@ -101,9 +119,57 @@ public class AdminController : BaseApiController
     }
     
     [Authorize(Policy = "ModeratePhotoRole")]
-    [HttpGet("photos-to-moderate")]
-    public ActionResult GetPhotosForModeration()
+    [HttpGet("unapproved-photos")]
+    public async Task<ActionResult<IEnumerable<PhotoForApprovalDto>>> GetPhotosForApproval()
     {
-        return Ok("Admins or moderators can see this");
+        var unapprovedPhotos = await GetUnapprovedPhotos();
+        
+        return Ok(unapprovedPhotos);
+    }
+
+    [Authorize(Policy = "ModeratePhotoRole")]
+    [HttpPost("approve-photo/{photoId}")]
+    public async Task<ActionResult> ApprovePhoto(int photoId)
+    {
+        var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
+        if(photo == null) return NotFound("Invalid photo");
+        
+        photo.IsApproved = true;
+
+        var user = await _unitOfWork.UserRepository.GetUserByPhotoId(photo);
+
+        if (!user.Photos.Any(t => t.IsMain))
+        {
+            photo.IsMain = true;
+        }
+        
+        if (_unitOfWork.HasChanges())
+        {
+            if (await _unitOfWork.Complete()) return Ok();
+        }
+
+        return BadRequest("Failed to approve photo");
+    }
+    [Authorize(Policy = "ModeratePhotoRole")]
+    [HttpPost("reject-photo/{photoId}")]
+    public async Task<ActionResult> RejectPhoto(int photoId)
+    {
+        var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
+        if(photo == null) return NotFound("Invalid photo");
+
+        return Ok();
+    }
+
+    private async Task<IEnumerable<PhotoForApprovalDto>> GetUnapprovedPhotos()
+    {
+        var photos = await _unitOfWork.PhotoRepository.GetUnapprovedPhotos();
+        var unapprovedPhotos = photos.Select(p =>
+        {
+            var t = _mapper.Map<PhotoForApprovalDto>(p);
+            t.Username = _unitOfWork.UserRepository.GetUserByPhotoId(p).Result.KnownAs;
+            return t;
+        });
+
+        return unapprovedPhotos;
     }
 }
