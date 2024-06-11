@@ -41,7 +41,11 @@ export class NavComponent implements OnInit {
     const password = this.formGroup.controls.password.getRawValue();
     this.accountService.login({"Username": username, "Password": password})
       .subscribe({
-        next: _ => this.router.navigateByUrl("/members"),
+        next: _ => {
+          this.router.navigateByUrl("/members")
+          this.formGroup.controls.username.setValue("");
+          this.formGroup.controls.password.setValue("");
+        },
         error: error => this.toastr.error(error.error)
       });
   }

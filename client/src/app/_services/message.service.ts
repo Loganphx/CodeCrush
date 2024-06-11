@@ -7,6 +7,8 @@ import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
 import {User} from "../_models/user";
 import {ToastrService} from "ngx-toastr";
 import {BehaviorSubject, take} from "rxjs";
+import {Group} from "../_models/group";
+import {MembersService} from "./members.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,8 @@ export class MessageService {
   messagesType?: string;
   count: number = 0;
   constructor(private http: HttpClient,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private memberService: MembersService) {
   }
 
   createHubConnection(user: User, otherUsername: string) {
@@ -41,6 +44,25 @@ export class MessageService {
         this.messageThreadSource.next(messages);
       })
 
+    this.hubConnection.on("UpdatedGroup", (group: Group) => {
+      if(group.connections.some(x => x.username === otherUsername)) {
+        this.memberService.getMember(otherUsername).pipe(take(1)).subscribe({
+          next: member => {
+            member.lastActive = new Date(Date.now())
+          }
+        })
+        this.messageThreadSource.pipe(take(1)).subscribe({
+          next: messages => {
+            messages.forEach(message => {
+              if(!message.dateRead) {
+                message.dateRead = new Date(Date.now());
+              }
+            })
+            this.messageThreadSource.next([...messages]);
+          }
+        })
+      }
+    })
       this.hubConnection!.on("NewMessage", message => {
         this.messageThread$.pipe(take(1)).subscribe({
           next: messages => {

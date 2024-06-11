@@ -42,7 +42,16 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.data.subscribe({
-      next: data => this.member = data['member']
+      next: data => {
+        this.member = data['member']
+        this.presenceService.onlineUsers$.pipe(take(1)).subscribe({
+          next: (onlineUsers) => {
+            if(onlineUsers.includes(this.member.username)){
+              this.member.lastActive = new Date(Date.now())
+            }
+          }
+        })
+      }
     })
 
     this.route.queryParams.subscribe({
