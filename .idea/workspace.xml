@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Updated Photos to required approval from a moderator.">
-      <change afterPath="$PROJECT_DIR$/API/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/API/Dockerfile" afterDir="false" />
+    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Added Github Actions Workflow">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Dating App API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/API/Dating App API.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/API/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fly.toml" beforeDir="false" afterPath="$PROJECT_DIR$/fly.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +86,7 @@
       <workItem from="1716500204631" duration="14062000" />
       <workItem from="1717708132917" duration="2000" />
       <workItem from="1717873601017" duration="50728000" />
-      <workItem from="1718227144615" duration="185000" />
+      <workItem from="1718227144615" duration="1068000" />
     </task>
     <task id="LOCAL-00001" summary="- Setup Member Messaging">
       <option name="closed" value="true" />
@@ -235,7 +232,31 @@
       <option name="project" value="LOCAL" />
       <updated>1718149883212</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="- Setup Dockerfile">
+      <option name="closed" value="true" />
+      <created>1718227399290</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1718227399290</updated>
+    </task>
+    <task id="LOCAL-00020" summary="- Setup Configuration for Fly.io">
+      <option name="closed" value="true" />
+      <created>1718227403798</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1718227403798</updated>
+    </task>
+    <task id="LOCAL-00021" summary="- Added Github Actions Workflow">
+      <option name="closed" value="true" />
+      <created>1718227418002</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1718227418002</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,7 +292,10 @@
     <MESSAGE value="- Created Group and Connection Model to track Message Groups and their corresponding connections for backend" />
     <MESSAGE value="- Updated Front-end to push a notification when the user receives a message." />
     <MESSAGE value="- Updated Photos to required approval from a moderator." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Updated Photos to required approval from a moderator." />
+    <MESSAGE value="- Setup Dockerfile" />
+    <MESSAGE value="- Setup Configuration for Fly.io" />
+    <MESSAGE value="- Added Github Actions Workflow" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added Github Actions Workflow" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -284,19 +308,16 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/app/_services/message.service.ts</url>
           <line>17</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/app/members/members-list/members-list.component.html</url>
           <line>4</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/app/_services/account.service.ts</url>
           <line>10</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
