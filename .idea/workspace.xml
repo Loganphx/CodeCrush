@@ -4,43 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Updated Front-end to push a notification when the user receives a message.">
-      <change afterPath="$PROJECT_DIR$/API/Data/PhotoRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/API/Interfaces/IPhotoRepository.cs" afterDir="false" />
+    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Updated Photos to required approval from a moderator.">
+      <change afterPath="$PROJECT_DIR$/API/Controllers/FallbackController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/AdminController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/LikesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/LikesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/MessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/MessagesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/UsersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/DTOs/PhotoDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/DTOs/PhotoDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Data/DataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/DataContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Data/Migrations/DataContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/Migrations/DataContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Data/Seed.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/Seed.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Data/UnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/UnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Data/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/UserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Entities/Photo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Entities/Photo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Helpers/AutoMapperProfiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Helpers/AutoMapperProfiles.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Interfaces/IUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Interfaces/IUnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Interfaces/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Interfaces/IUserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Interfaces/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Interfaces/IUserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Services/AccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Services/AccountService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Services/UserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/SignalR/MessageHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/SignalR/MessageHub.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/datingapp.db" beforeDir="false" afterPath="$PROJECT_DIR$/API/datingapp.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/_models/photo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_models/photo.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/_services/account.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_services/account.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/_services/admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_services/admin.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin/photo-management/photo-management.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin/photo-management/photo-management.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin/photo-management/photo-management.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin/photo-management/photo-management.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin/user-management/user-management.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/errors/test-error/test-error.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/errors/test-error/test-error.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-card/member-card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-card/member-card.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-card/member-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-card/member-card.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-messages/member-messages.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/environments/environment.development.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/environments/environment.development.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/environments/environment.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +85,7 @@
       <workItem from="1716481110315" duration="4546000" />
       <workItem from="1716500204631" duration="14062000" />
       <workItem from="1717708132917" duration="2000" />
-      <workItem from="1717873601017" duration="49435000" />
+      <workItem from="1717873601017" duration="50728000" />
     </task>
     <task id="LOCAL-00001" summary="- Setup Member Messaging">
       <option name="closed" value="true" />
@@ -256,7 +223,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717987520745</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="- Updated Photos to required approval from a moderator.">
+      <option name="closed" value="true" />
+      <created>1718149883212</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1718149883212</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,7 +266,8 @@
     <MESSAGE value="- Tied Presence Tracker into Front end to display when users are online" />
     <MESSAGE value="- Created Group and Connection Model to track Message Groups and their corresponding connections for backend" />
     <MESSAGE value="- Updated Front-end to push a notification when the user receives a message." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Updated Front-end to push a notification when the user receives a message." />
+    <MESSAGE value="- Updated Photos to required approval from a moderator." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Updated Photos to required approval from a moderator." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
