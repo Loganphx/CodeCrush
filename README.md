@@ -5,6 +5,7 @@
 - EntityFramework
 - .Net Identity
 - Policy based Authorization
+- Pagination using query strings
 
 <h3>Current Frontend Features</h3>
 - Angular + HTML5
@@ -12,12 +13,11 @@
 - Bootstrap
 - Toastr
 - Modals
+- Paginated Views
 
 <h2>Planned Features</h2>
 - Unread Notifications on Navbar
-- Paginate Admin - User Management
 - Redis/Rabbit (Some sort of caching)
-- Run API and Frontend on Docker
 - Host on AWS
 - Backend Testing
 - Frontend Testing
