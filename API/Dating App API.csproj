@@ -4,8 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>Dating App API</AssemblyName>
-    <RootNamespace>Dating App API</RootNamespace>
+    <AssemblyName>API</AssemblyName>
+    <RootNamespace>API</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
