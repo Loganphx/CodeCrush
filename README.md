@@ -1,7 +1,23 @@
-Dating Website
-Current Backend Features
-- MySQL Database - EntityFramework - .Net Identity - Policy based Authorization
-Current Frontend Features
-- Angular + HTML5 - Typescript - Bootstrap - Toastr - Modals
-Planned Features
-- Unread Notifications on Navbar - Paginate Admin - User Management - Redis/Rabbit (Some sort of caching) - Run API and Frontend on Docker - Host on AWS - Backend Testing - Frontend Testing
+<h1>Dating Website</h1>
+
+<h3>Current Backend Features</h3>
+- MySQL Database
+- EntityFramework
+- .Net Identity
+- Policy based Authorization
+
+<h3>Current Frontend Features</h3>
+- Angular + HTML5
+- Typescript
+- Bootstrap
+- Toastr
+- Modals
+
+<h2>Planned Features</h2>
+- Unread Notifications on Navbar
+- Paginate Admin - User Management
+- Redis/Rabbit (Some sort of caching)
+- Run API and Frontend on Docker
+- Host on AWS
+- Backend Testing
+- Frontend Testing
