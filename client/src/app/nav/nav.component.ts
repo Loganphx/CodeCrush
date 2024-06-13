@@ -46,7 +46,9 @@ export class NavComponent implements OnInit {
           this.formGroup.controls.username.setValue("");
           this.formGroup.controls.password.setValue("");
         },
-        error: error => this.toastr.error(error.error)
+        error: error => {
+          this.toastr.error(error.error.message)
+        }
       });
   }
 
