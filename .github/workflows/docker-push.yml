@@ -7,6 +7,23 @@ on:
       - 'main'
 
 jobs:
+  angular:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+      - name: Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: NPM Install
+        run: npm install
+      - name: NG Build
+        run: npm run build --prefix client
+        
   docker:
     runs-on: ubuntu-latest
     steps:
