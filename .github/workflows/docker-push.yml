@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 18.x
       - name: NPM Install
-        run: npm install
+        run: npm install --prefix client
       - name: NG Build
         run: npm run build --prefix client
         
