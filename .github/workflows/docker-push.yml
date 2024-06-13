@@ -23,6 +23,8 @@ jobs:
         run: npm install --prefix client
       - name: NG Build
         run: npm run build --prefix client
+      - name: commit files
+        run: git add . 
       - name: commit changed files
         run: | 
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
