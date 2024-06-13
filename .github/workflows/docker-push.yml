@@ -31,6 +31,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git commit -a -m "Angular Build"
       - name: Push changes
+        continue-on-error: true
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
