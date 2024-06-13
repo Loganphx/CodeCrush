@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Member} from "../../_models/member";
 import {FileUploader} from "ng2-file-upload";
-import {environment} from "../../../environments/environment.development";
 import {AccountService} from "../../_services/account.service";
 import {take} from "rxjs";
 import {User} from "../../_models/user";
 import {MembersService} from "../../_services/members.service";
 import {Photo} from "../../_models/photo";
+import {ToastrService} from "ngx-toastr";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-photo-editor',
@@ -20,7 +21,9 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl
   user: User | undefined;
 
-  constructor(private accountService: AccountService, private memberService: MembersService) {
+  constructor(private accountService: AccountService,
+              private memberService: MembersService,
+              private toastr: ToastrService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => {
         if(user) this.user = user;
@@ -44,13 +47,18 @@ export class PhotoEditorComponent implements OnInit {
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024 // 10MB
+      maxFileSize: 10 * 1024 * 1024 // 10MB,
     });
 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     }
 
+    this.uploader.onErrorItem = (err) => {
+      if(err.isError){
+        this.toastr.error("Failed to upload image");
+      }
+    }
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if(response){
         const photo = JSON.parse(response);
@@ -61,6 +69,9 @@ export class PhotoEditorComponent implements OnInit {
           this.user.photoUrl = photo.url;
           this.accountService.setCurrentUser(this.user!);
         }
+      }
+      else {
+        this.toastr.error("Failed to get a response")
       }
     }
   }

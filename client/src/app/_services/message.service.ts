@@ -27,7 +27,7 @@ export class MessageService {
   }
 
   createHubConnection(user: User, otherUsername: string) {
-    this.toastr.info("Creating Hub Connection")
+    // this.toastr.info("Creating Hub Connection")
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.hubUrl + "message?user=" + otherUsername, {
         accessTokenFactory: () => user.token
@@ -73,7 +73,7 @@ export class MessageService {
   }
 
   stopHubConnection() {
-    this.toastr.info("Stopping Hub Connection")
+    // this.toastr.info("Stopping Hub Connection")
     if (this.hubConnection) {
       this.hubConnection?.stop().catch(error => {
         console.log(error);

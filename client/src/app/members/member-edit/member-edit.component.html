@@ -29,6 +29,10 @@
           <strong>Member Since:</strong>
           <p>{{member.created}}</p>
         </div>
+        <div>
+          <strong>Total Photos:</strong>
+          <p>{{member.photos.length}}</p>
+        </div>
       </div>
       <div class="card-footer" >
           <button type="submit" [disabled]= "!editMemberFormGroup.dirty" form="editForm" class="btn btn-success col-12" >Save Changes</button>

@@ -1,0 +1,23 @@
+# This is a generated file. Not intended for manual editing.
+version: "2"
+services:
+  datingapp:
+    build:
+      context: "C:\\Users\\logan\\WebstormProjects\\DatingAppAPI\\API"
+      dockerfile: "Dockerfile"
+      target: "build-env"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/API.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net7.0/API.staticwebassets.runtime.CT.json"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "dating app apidatingappapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\logan\\.nuget\\packages:/root/.nuget/packages"
+    - "C:\\Users\\logan\\WebstormProjects\\DatingAppAPI\\API:/app:rw"
+    - "C:\\Users\\logan\\WebstormProjects\\DatingAppAPI\\API:/src:rw"
+    working_dir: "/app"

@@ -1,19 +1,19 @@
-# fly.toml app configuration file generated for datingappapi on 2024-06-12T01:08:48-05:00
+# fly.toml app configuration file generated for loganphx-datingapp on 2024-06-12T18:51:46-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'datingappapi'
+app = 'loganphx-datingapp'
 primary_region = 'dfw'
 
-[env]
-  ASPNETCORE_URLS="http://+:8080"
-  CloudinarySettings__CloudName="dfiyhd3cm"
-  CloudinarySettings__ApiKey="641744142359136"
-
 [build]
-  image = "loganphx/datingapp"
-  dockerfile = "API/Dockerfile.test"
+  image = 'loganphx/datingapp'
+  dockerfile = 'API/Dockerfile.test'
+
+[env]
+  ASPNETCORE_URLS = 'http://+:8080'
+  CloudinarySettings__ApiKey = '641744142359136'
+  CloudinarySettings__CloudName = 'dfiyhd3cm'
 
 [http_service]
   internal_port = 8080

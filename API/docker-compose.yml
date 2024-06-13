@@ -1,0 +1,14 @@
+﻿version: '2'
+services:
+  datingapp:
+    
+    environment: 
+      - ASPNETCORE_URLS=http://+:8080
+      - DATABASE_URL=postgres://postgres:postgrespw@host.docker.internal:5432/datingapp?sslmode=disable
+    
+    restart: "no"
+    
+    build: .
+    
+    ports:
+      - 8080:8080/tcp

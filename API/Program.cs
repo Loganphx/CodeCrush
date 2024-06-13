@@ -15,6 +15,38 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+var connString = "";
+if (builder.Environment.IsDevelopment())
+{
+    connString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+else
+{
+    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL")!;
+    // connUrl = "postgres://postgres:postgrespw@host.docker.internal:5432/datingapp?sslmode=disable";
+    // Console.WriteLine(connUrl);
+    // Parse connection URL to connection string for Npgsql
+    connUrl = connUrl.Replace("postgres://", String.Empty);
+    var pgUserPass = connUrl.Split("@")[0];
+    var pgHostPortDb = connUrl.Split("@")[1];
+    var pgHostPort = pgHostPortDb.Split("/")[0];
+    var pgDb = pgHostPortDb.Split("/")[1];
+    var pgUser = pgUserPass.Split(":")[0];
+    var pgPass = pgUserPass.Split(":")[1];
+    var pgHost = pgHostPort.Split(":")[0];
+    var pgPort = pgHostPort.Split(":")[1];
+
+    connString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};sslmode=disable;";
+}
+builder.Services.AddDbContext<DataContext>(opt =>
+{
+    opt.UseNpgsql(connString, optionsBuilder =>
+    {
+        optionsBuilder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+    });
+});
+
 builder.Services.AddCors();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -32,36 +64,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-var connString = "";
-if (builder.Environment.IsDevelopment())
-{
-    connString = builder.Configuration.GetConnectionString("DefaultConnection");
-}
-else
-{
-    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL")!;
-
-    // Parse connection URL to connection string for Npgsql
-    connUrl = connUrl.Replace("postgres://", String.Empty);
-    var pgUserPass = connUrl.Split("@")[0];
-    var pgHostPortDb = connUrl.Split("@")[1];
-    var pgHostPort = pgHostPortDb.Split("/")[0];
-    var pgDb = pgHostPortDb.Split("/")[1];
-    var pgUser = pgUserPass.Split(":")[0];
-    var pgPass = pgUserPass.Split(":")[1];
-    var pgHost = pgHostPort.Split(":")[0];
-    var pgPort = pgHostPort.Split(":")[1];
-
-    connString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};";
-}
-builder.Services.AddDbContext<DataContext>(opt =>
-{
-    opt.UseNpgsql(connString, optionsBuilder =>
-    {
-        optionsBuilder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
-    });
-});
 
 var app = builder.Build();
 
