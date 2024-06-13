@@ -29,22 +29,22 @@ public class ExceptionMiddleware
         catch (BadRequestException badRequestException)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode  = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
             var response = new ApiException(context.Response.StatusCode, badRequestException.Message, "");
-            var options  = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var json     = JsonSerializer.Serialize(response, options);
+            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var json = JsonSerializer.Serialize(response, options);
 
             await context.Response.WriteAsync(json);
         }
         catch (UnauthorizedException unauthorizedException)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode  = (int)HttpStatusCode.Unauthorized;
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
 
             var response = new ApiException(context.Response.StatusCode, unauthorizedException.Message, "");
-            var options  = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var json     = JsonSerializer.Serialize(response, options);
+            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var json = JsonSerializer.Serialize(response, options);
 
             await context.Response.WriteAsync(json);
         }

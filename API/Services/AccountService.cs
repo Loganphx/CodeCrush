@@ -69,7 +69,7 @@ public class AccountService : IAccountService
 
         var successful = await _unitOfWork.UserRepository.CheckPasswordAsync(user, loginDto.Password);
 
-        if (!successful) throw new UnauthorizedAccessException("Invalid password");
+        if (!successful) throw new UnauthorizedException("Invalid password");
 
         var token = await _tokenService.CreateToken(user);
         var userDto = _mapper.Map<UserDto>(user);
