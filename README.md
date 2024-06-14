@@ -1,4 +1,4 @@
-<h1>Dating Website</h1>
+<h1>CodeCrush</h1>
 
 <h3>Current Backend Features</h3>
 - MySQL Database
