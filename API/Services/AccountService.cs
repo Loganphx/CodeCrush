@@ -58,6 +58,7 @@ public class AccountService : IAccountService
         var userDto = _mapper.Map<UserDto>(user);
         userDto.Token = token;
 
+        var t = new int[2];
         return userDto;
     }
 

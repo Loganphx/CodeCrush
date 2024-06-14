@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Added Github Actions Workflow">
-      <change afterPath="$PROJECT_DIR$/API/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/docker-push.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/docker-push.yml" afterDir="false" />
+    <list default="true" id="fbfcc230-374d-4103-9b18-b1f0a8c761ea" name="Changes" comment="- Fixed Bug with File Uploading in Prod.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Data/Seed.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Data/Seed.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/API/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/wwwroot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/API/wwwroot/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/wwwroot/main.f56817b7abce91d3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/_services/message.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/_services/message.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/member-edit/member-edit.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/member-edit/member-edit.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/photo-editor/photo-editor.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/photo-editor/photo-editor.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/members/photo-editor/photo-editor.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/members/photo-editor/photo-editor.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fly.toml" beforeDir="false" afterPath="$PROJECT_DIR$/fly.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/wwwroot/main.c929513d15ee89bd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/nav/nav.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/nav/nav.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +87,7 @@
       <workItem from="1716500204631" duration="14062000" />
       <workItem from="1717708132917" duration="2000" />
       <workItem from="1717873601017" duration="50728000" />
-      <workItem from="1718227144615" duration="8080000" />
+      <workItem from="1718227144615" duration="9431000" />
     </task>
     <task id="LOCAL-00001" summary="- Setup Member Messaging">
       <option name="closed" value="true" />
@@ -267,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718227418002</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="- Fixed Bug with File Uploading in Prod.">
+      <option name="closed" value="true" />
+      <created>1718237182358</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1718237182358</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +304,8 @@
     <MESSAGE value="- Setup Dockerfile" />
     <MESSAGE value="- Setup Configuration for Fly.io" />
     <MESSAGE value="- Added Github Actions Workflow" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added Github Actions Workflow" />
+    <MESSAGE value="- Fixed Bug with File Uploading in Prod." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fixed Bug with File Uploading in Prod." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
